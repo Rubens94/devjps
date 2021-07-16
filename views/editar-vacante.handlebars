@@ -1,0 +1,56 @@
+<main class="contenedor">
+    <form action="/vacantes/editar/{{vacante.url}}" method="POST" class="default-form">
+        <h3>Información General</h3>
+
+        <div class="campo">
+            <label>Título</label>
+            <input type="text" name="titulo" placeholder="Ej: React Developer" value="{{vacante.titulo}}" required>
+        </div>
+
+        <div class="campo">
+            <label>Empresa</label>
+            <input type="text" name="empresa" placeholder="Ej: Empresa Contrata" value="{{vacante.empresa}}" required>
+        </div>
+
+        <div class="campo">
+            <label>Ubicación</label>
+            <input type="text" name="ubicacion" placeholder="Ej: México o Remoto" value="{{vacante.ubicacion}}" required>
+        </div>
+
+        <div class="campo">
+            <label>Salario (USD)</label>
+            <input type="text" name="salario" placeholder="Ej: 500 (USD)" value="{{vacante.salario}}" required>
+        </div>
+
+        <div class="campo">
+            <label>Contrato</label>
+            <select name="contrato">
+                {{#tipoContrato vacante.contrato}} {{!-- helper --}}
+                    <option value="" disabled selected>-- Selecciona --</option>
+                    <option value="Freelance">Freelance</option>
+                    <option value="Tiempo Completo">Tiempo Completo</option>
+                    <option value="Medio Tiempo">Medio Tiempo</option>
+                    <option value="Por Proyecto">Por Proyecto</option>
+                {{/tipoContrato}}
+            </select>
+        </div>
+        <h3>Descripción del Puesto</h3>
+        <div class="campo descripcion">
+            <label>Descripción</label>
+            <input type="hidden" id="x" name="descripcion" value="{{vacante.descripcion}}"> {{!-- vincular el input de trix-editor con el input en name --}}
+            <trix-editor input="x"></trix-editor> {{!-- usar Trix editor --}}
+        </div>
+
+        <h3>Conocimientos</h3>
+        {{!-- Llamar los skills desde el archivo de helpers/handlebars --}}
+        <ul class="lista-conocimientos">
+            {{#seleccionarSkills vacante.skills}} {{!-- La letra 'a' es para evitar el error de que no se encuentra la funcion fn, se puede poner cualquier cosa en 'a' --}}
+            {{/seleccionarSkills}}
+        </ul>
+
+        <div class="campo centrar-horizontal">
+            <input type="hidden" name="skills" id="skills">
+            <input type="submit" value="Guardar Cambios" class="btn btn-azul">
+        </div>
+    </form>
+</main>
